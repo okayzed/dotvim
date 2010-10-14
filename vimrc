@@ -1,5 +1,10 @@
 set nocompatible
 
+
+" Pathogen initializer {{{
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+" }}}
 " UI OPTIONS {{{
 set t_Co=256
 
@@ -158,7 +163,6 @@ autocmd FileType irb inoremap <buffer> <CR> <Esc>:<C-u>ruby v=VIM::Buffer.curren
 nnoremap <leader>irb :<C-u>below new<CR>:setfiletype irb<CR>:set syntax=ruby<CR>:set buftype=nofile<CR>:set bufhidden=delete<CR>i
 " }}}
 " PLUGIN SETTINGS {{{
-
 " Finding function in python. Pretty nifty.
 python << EOL
 import vim
