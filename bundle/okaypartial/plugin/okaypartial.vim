@@ -3,7 +3,7 @@ if exists("g:loaded_okaypartial") || &cp
 endif
 let g:OkPartialList_title ="partials"
 let g:loaded_okaypartial  = 017 " your version number
-let g:partial_tree_path   = "~/tonka/src/ruby/causes/libexec/create_partial_tree.rb"
+let g:partial_tree_path   = "~/tonka/bin/create_partial_tree.rb"
 let s:keepcpo             = &cpo
 set cpo&vim
 

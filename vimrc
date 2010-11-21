@@ -151,6 +151,8 @@ map <F3> :nohlsearch<CR> :SearchReset<CR>
 " highlight class of character under the word
 nmap <silent> <F10>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 map gn :e <cfile><CR>
+
+nmap gr :exec ":silent !xdg-open ".expand("<cWORD>")
 " Set gp to select the last pasted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 

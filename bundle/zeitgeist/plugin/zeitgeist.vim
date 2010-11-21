@@ -4,13 +4,14 @@
 
 function! ZeigtgeistLog(filename,use_id)
 python << endpython
-if zeitgeistclient is not None:
+filename = vim.eval("a:filename")
+if zeitgeistclient is not None and filename:
   use = {
     "read" : Interpretation.ACCESS_EVENT,
     "new" : Interpretation.CREATE_EVENT,
     "write" : Interpretation.MODIFY_EVENT} [vim.eval("a:use_id")]
 
-  f = gio.File(vim.eval("a:filename"))
+  f = gio.File(filename)
   try:
     fi = f.query_info(gio.FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)
     uri = f.get_uri()
