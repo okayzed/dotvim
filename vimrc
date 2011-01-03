@@ -14,7 +14,7 @@ if has("gui_running")
         set guioptions-=T "get rid of toolbar
         set guioptions-=r "get rid of right scrollbar
         set guioptions-=l "get rid of left scrollbar
-        set guifont=LMMono12\ 12
+        set guifont=Liberation\ Mono\ 12
 endif
 
 
@@ -145,6 +145,8 @@ nmap [g :cp
 nmap ]g :cn
 nmap [t :tp
 nmap ]t :tn
+
+:nnoremap <silent> xw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 
 " no highlighting after search with F3
 map <F3> :nohlsearch<CR> :SearchReset<CR>
