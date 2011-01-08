@@ -117,6 +117,7 @@ endif
 filetype plugin on
 set ofu=syntaxcomplete#Complete
 
+set thesaurus+=~/.vim/mthesaur.txt
 
 " }}}
 " MAPPINGS {{{
