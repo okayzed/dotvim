@@ -15,11 +15,12 @@ if has("gui_running")
         set guioptions-=r "get rid of right scrollbar
         set guioptions-=l "get rid of left scrollbar
         set guifont=Liberation\ Mono\ 12
+        colorscheme molokai
 endif
 
 
 " set the color scheme
-colorscheme molokai
+colorscheme wombat
 " }}}
 " GENERAL OPTIONS {{{
 " Short Messages - Don't give me that file already being edited nonsense
@@ -41,8 +42,6 @@ set softtabstop=4
 set tabstop=8
 " wild menu
 set wildmenu
-" No title (it's too distracting)
-set notitle
 
 " Turn off mouse abilities
 set mouse=
