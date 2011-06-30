@@ -14,7 +14,7 @@ if has("gui_running")
         set guioptions-=T "get rid of toolbar
         set guioptions-=r "get rid of right scrollbar
         set guioptions-=l "get rid of left scrollbar
-        set guifont=Liberation\ Mono\ 12
+        set guifont=Liberation\ Mono\ 10
         colorscheme molokai
 endif
 
@@ -42,6 +42,8 @@ set softtabstop=4
 set tabstop=8
 " wild menu
 set wildmenu
+
+set completeopt=longest,menuone,preview
 
 " Turn off mouse abilities
 set mouse=
@@ -149,7 +151,7 @@ nmap ]t :tn
 :nnoremap <silent> xw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 
 " no highlighting after search with F3
-map <F3> :nohlsearch<CR> :SearchReset<CR>
+map <F3> :nohlsearch<CR>
 " highlight class of character under the word
 nmap <silent> <F10>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 map gn :e <cfile><CR>
@@ -189,9 +191,16 @@ command! -nargs=1 Find :py Finder("<args>")
 map <Leader>f :Find
 
 " Latex-Suite Options
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
 " Remove the Math menu from Latex-Suite
 let g:Tex_MathMenus=0
-let g:Tex_ViewRule_pdf='evince'
+let g:Tex_ViewRule_pdf='xdg-open'
+let g:Tex_DefaultTargetFormat='pdf'
 
 " Taglist Options
 " explicitly set our st plugin with F8
@@ -214,7 +223,11 @@ let mapleader = "\\"
 nmap <C-M-i>  <Plug>(exjumplist-next-buffer)
 nmap <C-M-o>  <Plug>(exjumplist-previous-buffer)
 
+" VimChat - don't use a status icon.
+let g:vimchat_statusicon = 0
 "
+nnoremap <LocalLeader>u :GundoToggle<CR>
+
 " }}}
 
 " OBJECTIVE-J {{{
