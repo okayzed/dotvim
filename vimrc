@@ -20,7 +20,7 @@ endif
 
 
 " set the color scheme
-colorscheme wombat
+colorscheme molokai
 " }}}
 " GENERAL OPTIONS {{{
 " Short Messages - Don't give me that file already being edited nonsense
@@ -42,7 +42,6 @@ set softtabstop=4
 set tabstop=8
 " wild menu
 set wildmenu
-
 set completeopt=longest,menuone,preview
 
 " Turn off mouse abilities
@@ -238,6 +237,8 @@ augroup END
  
 " {{{ FILETYPE OPTIONS
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+autocmd BufRead,BufNewFile *.less set filetype=less
+
 " }}}
 "
 " vim: foldmethod=marker

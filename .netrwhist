@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/okay/.vim/bundle/okaypartial'
-let g:netrw_dirhist_2='/home/okay/tonka/src/recrec/code'
-let g:netrw_dirhist_3='/home/okay/tonka/src/recrec/code/web/config/deploy'
-let g:netrw_dirhist_4='/home/okay/tonka/src/recrec/code/web/test'
-let g:netrw_dirhist_5='/home/okay/tonka/src/recrec/cb_classifier/src'
-let g:netrw_dirhist_6='/home/okay/tonka/src/recrec/code/web/config/deploy'
