@@ -15,12 +15,12 @@ if has("gui_running")
         set guioptions-=r "get rid of right scrollbar
         set guioptions-=l "get rid of left scrollbar
         set guifont=Liberation\ Mono\ 10
-        colorscheme molokai
 endif
 
 
 " set the color scheme
 colorscheme molokai
+set background=dark
 " }}}
 " GENERAL OPTIONS {{{
 " Short Messages - Don't give me that file already being edited nonsense
@@ -44,6 +44,9 @@ set tabstop=8
 set wildmenu
 set completeopt=longest,menuone,preview
 
+" show me the command!
+set showcmd
+
 " Turn off mouse abilities
 set mouse=
 
@@ -52,44 +55,12 @@ set list listchars=tab:»·,trail:·
 " Display statusline always
 " taken from http://techspeak.plainlystated.com/2009/05/vim-statusline.html
 
-" stores the current line number and returns the difference between the
-" current and last. Used in the statusline
-function! ShowDirection()
-  let curr_line     = "g:okline_curr_".bufnr("")
-  let prev_line     = "g:okline_prev_".bufnr("")
-  let prev_diff     = "g:okline_diff_".bufnr("")
-
-  let {curr_line}   = line(".")
-  if exists(prev_line) && {prev_line} != {curr_line}
-    let diff_lines  = {curr_line} - {prev_line}
-  else
-    if exists(prev_diff)
-      return {prev_diff}
-    else
-      let diff_lines = 0
-    endif
-  endif
-
-
-  if diff_lines > 0
-    let diff_lines = diff_lines.">"
-  elseif diff_lines < 0
-    let diff_lines = "<".abs(diff_lines)
-  endif
-
-  let {prev_diff}   = diff_lines
-  let {prev_line}   = {curr_line}
-
-  return diff_lines
-endfunction
-
 set laststatus=2
 set statusline=
 set statusline+=%<\                       " cut at start
 set statusline+=%f\                       " relative path
 set statusline+=%m                        " modifiable flag
 set statusline+=%=                        " seperate between right- and left-aligned
-set statusline+=%-5.{ShowDirection()}       " show direction since the last movement.
 set statusline+=%2*[%n]%*\                " buffer number, and flags
 set statusline+=%1*%y%*%*\                " file type
 set statusline+=%10((%v,%l)%)\            " line and column
@@ -216,28 +187,15 @@ let spell_root_menu="-"
 let spell_executable="aspell"
 let mapleader = "\\"
 
-" Exjumplist bindings
-"nmap <C-M-i>  <Plug>(exjumplist-go-last)
-"nmap <C-M-o>  <Plug>(exjumplist-go-first)
-nmap <C-M-i>  <Plug>(exjumplist-next-buffer)
-nmap <C-M-o>  <Plug>(exjumplist-previous-buffer)
-
-" VimChat - don't use a status icon.
-let g:vimchat_statusicon = 0
 "
 nnoremap <LocalLeader>u :GundoToggle<CR>
 
 " }}}
 
-" OBJECTIVE-J {{{
-augroup objective-j
-au! BufRead,BufNewFile *.j set filetype=objj
-augroup END
-" }}}
- 
 " {{{ FILETYPE OPTIONS
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 autocmd BufRead,BufNewFile *.less set filetype=less
+autocmd BufRead,BufNewFile *.coffee set filetype=coffee
 
 " }}}
 "
