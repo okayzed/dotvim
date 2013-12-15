@@ -51,7 +51,6 @@ set showcmd
 set mouse=
 
 " Display whitespace
-set list listchars=tab:»·,trail:·
 " Display statusline always
 " taken from http://techspeak.plainlystated.com/2009/05/vim-statusline.html
 
