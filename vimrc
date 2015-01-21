@@ -195,7 +195,8 @@ nnoremap <LocalLeader>u :GundoToggle<CR>
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 autocmd BufRead,BufNewFile *.less set filetype=less
 autocmd BufRead,BufNewFile *.coffee set filetype=coffee
-
+set suffixesadd+=.js
+set path+=**
 " }}}
 "
 " vim: foldmethod=marker
