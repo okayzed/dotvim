@@ -197,6 +197,7 @@ autocmd BufRead,BufNewFile *.less set filetype=less
 autocmd BufRead,BufNewFile *.coffee set filetype=coffee
 set suffixesadd+=.js
 set path+=**
+set cinoptions=cino-l
 " }}}
 "
 " vim: foldmethod=marker
