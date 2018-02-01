@@ -17,13 +17,13 @@ If you're old school or not into pathogen, there is a Makefile to copy everythin
 
 Add to vimrc:
 
-`Bundle "wookiehangover/jshint.vim"`
+`Plugin "wookiehangover/jshint.vim"`
 
 And install it:
 
 ```vim
 :so ~/.vimrc
-:BundleInstall
+:PluginInstall
 ```
 
 ### Install with [pathogen](https://github.com/tpope/vim-pathogen)
@@ -34,7 +34,7 @@ And install it:
 
 ### Automatically
 
-This plugin automatically checks the JavaScript source and highlights the lines with errors on file writes, entering a buffer and leaving insert mode. It also will display more information about the error in the commandline if the curser is in the same line.
+This plugin automatically checks the JavaScript source and highlights the lines with errors on file writes, entering a buffer and leaving insert mode. It also will display more information about the error in the commandline if the cursor is in the same line.
 
 To disable automatic checking and only check when the file is written, use the following in your ~/.vimrc or set it at runtime:
 `let JSHintUpdateWriteOnly=1`

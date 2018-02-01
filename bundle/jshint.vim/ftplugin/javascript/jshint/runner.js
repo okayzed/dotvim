@@ -1,11 +1,14 @@
-'use strict';
+#!/usr/bin/env node
 
-var jshint = require('jshint').JSHINT,
-  puts = require('util').puts,
-  stdin = process.openStdin(),
-  fs = require('fs'),
-  jshintrc = process.argv[2] ? fs.readFileSync(process.argv[2], 'utf8') : '',
-  body = [];
+var jshint = require('jshint').JSHINT;
+var puts = require('util').puts;
+var stdin = process.openStdin();
+var fs = require('fs');
+var jshintrc = process.argv[2] ? fs.readFileSync(process.argv[2], 'utf8') : '';
+var body = [];
+
+var docblock = require('jstransform/src/docblock');
+var react = require('react-tools');
 
 function allcomments(s) {
   return (/^(?:\s*\/\/[^\n]*\s*|\s*\/\*(?:[^\*]|\*(?!\/))*\*\/\s*)*$/).test(s);
@@ -15,7 +18,7 @@ function allcomments(s) {
 // expressions involving regexp literals. This is okay, since it's only meant
 // to be used on JSON-with-comments, and JSON doesn't have regexp literals.
 function removecomments(s) {
-  var re = /(["'])(?:[^\1]|\\\1|)*\1|\/\/[^\n]*|\/\*(?:[^\*]|\*(?!\/))*\*\//g;
+  var re = /("([^"]|\\")*")|('([^']|\\')*')|\/\/[^\n]*|\/\*(?:[^\*]|\*(?!\/))*\*\//g;
   return s.replace(re, function(x) {
     return (/^["']/).test(x) ? x : ' ';
   });
@@ -46,7 +49,24 @@ stdin.on('end', function() {
     }
   }
 
-  if( jshint( prefix + body.join(''), options ) ){
+  var globals;
+
+  if (options && options.globals) {
+    globals = options.globals;
+    delete options.globals;
+  }
+
+  var source = body.join('');
+  var hasDocblock = docblock.parseAsObject(docblock.extract(source)).jsx;
+
+  if (hasDocblock) try {
+    source = react.transform(source, {harmony: true});
+  } catch(e) {
+    puts('Error parsing React JSX');
+    return;
+  }
+
+  if( jshint( prefix + source, options, globals ) ){
     return;
   }
 

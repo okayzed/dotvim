@@ -127,6 +127,8 @@ map <F3> :nohlsearch<CR>
 " build on f4
 map <F4> :make<CR>
 
+map <F5> :SyntasticCheck<CR>
+
 " highlight class of character under the word
 nmap <silent> <F10>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 map gn :e <cfile><CR>
@@ -202,10 +204,13 @@ let spell_root_menu="-"
 let spell_executable="aspell"
 let mapleader = "\\"
 
-"
+" gundo toggle bindings
 nnoremap <LocalLeader>u :GundoToggle<CR>
 
+" syntastic
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
+" buf explorer
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
 

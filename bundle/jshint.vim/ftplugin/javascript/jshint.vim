@@ -1,4 +1,3 @@
-
 " Global Options
 "
 " Enable/Disable highlighting of errors in source.
@@ -11,6 +10,11 @@ if exists("b:did_jshint_plugin")
   finish
 else
   let b:did_jshint_plugin = 1
+endif
+
+" Bail out for vim-fugitive file paths...
+if stridx(expand("%:p"), "fugitive:///") == 0
+  finish
 endif
 
 let s:install_dir = expand('<sfile>:p:h')
@@ -59,10 +63,12 @@ if !exists(":JSHintToggle")
   command JSHintToggle :let b:jshint_disabled = exists('b:jshint_disabled') ? b:jshint_disabled ? 0 : 1 : 1
 endif
 
-noremap <buffer><silent> dd dd:JSHintUpdate<CR>
-noremap <buffer><silent> dw dw:JSHintUpdate<CR>
-noremap <buffer><silent> u u:JSHintUpdate<CR>
-noremap <buffer><silent> <C-R> <C-R>:JSHintUpdate<CR>
+if g:JSHintUpdateWriteOnly == 0
+    noremap <buffer><silent> dd dd:JSHintUpdate<CR>
+    noremap <buffer><silent> dw dw:JSHintUpdate<CR>
+    noremap <buffer><silent> u u:JSHintUpdate<CR>
+    noremap <buffer><silent> <C-R> <C-R>:JSHintUpdate<CR>
+endif
 
 " Set up command and parameters
 
@@ -70,7 +76,7 @@ let s:plugin_path = s:install_dir . "/jshint/"
 if has('win32')
   let s:plugin_path = substitute(s:plugin_path, '/', '\', 'g')
 endif
-let s:cmd = "cd " . s:plugin_path . " && node " . s:plugin_path . "runner.js"
+let s:cmd = "cd " . s:plugin_path . " && ./runner.js"
 
 " FindRc() will try to find a .jshintrc up the current path string
 " If it cannot find one it will try looking in the home directory
@@ -79,17 +85,17 @@ let s:cmd = "cd " . s:plugin_path . " && node " . s:plugin_path . "runner.js"
 if !exists("*s:FindRc")
   function s:FindRc(path)
     let l:filename = '/.jshintrc'
-    let l:jshintrc_file = expand(a:path) . l:filename
+    let l:jshintrc_file = a:path . '/.jshintrc'
     if filereadable(l:jshintrc_file)
-      let s:jshintrc_file = l:jshintrc_file
+      let b:jshintrc_file = l:jshintrc_file
     elseif len(a:path) > 1
-      call s:FindRc(fnamemodify(expand(a:path), ":h"))
+      call s:FindRc(fnamemodify(a:path, ":h"))
     else
       let l:jshintrc_file = expand('~') . l:filename
       if filereadable(l:jshintrc_file)
-        let s:jshintrc_file = l:jshintrc_file
+        let b:jshintrc_file = l:jshintrc_file
       else
-        let s:jshintrc_file = ''
+        let b:jshintrc_file = ''
       end
     endif
   endfun
@@ -165,7 +171,7 @@ function! s:JSHint()
     return
   endif
 
-  let b:jshint_output = system(s:cmd . " " . s:jshintrc_file, lines . "\n")
+  let b:jshint_output = system(s:cmd . " " . b:jshintrc_file, lines . "\n")
   if v:shell_error
     echoerr 'could not invoke JSHint: '
     echom b:jshint_output
