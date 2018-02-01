@@ -1,6 +1,5 @@
 set nocompatible
 
-
 " Pathogen initializer {{{
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -19,7 +18,7 @@ endif
 
 
 " set the color scheme
-colorscheme molokai
+colorscheme PaperColor
 set background=dark
 " }}}
 " GENERAL OPTIONS {{{
@@ -39,10 +38,13 @@ set expandtab
 set shiftwidth=2
 set smarttab
 set softtabstop=4
-set tabstop=8
+set tabstop=2
 " wild menu
 set wildmenu
 set completeopt=longest,menuone,preview
+
+" default to using marker folds
+set foldmethod=marker
 
 " show me the command!
 set showcmd
@@ -111,7 +113,6 @@ map ,[ 0/$:nohlsearch<CR>a [okay]
 " a grep mapping - doesn't add * to the end because it will search all files
 " in cur directory, and ack-grep is smart enough to know that.
 map <Leader>g :grep <cword>
-map <Leader>le :LustyJuggler
 nmap [g :cp
 nmap ]g :cn
 nmap [t :tp
@@ -119,8 +120,13 @@ nmap ]t :tn
 
 :nnoremap <silent> xw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 
+" toggle paste mode
+map <F2> :set paste!<CR>
 " no highlighting after search with F3
 map <F3> :nohlsearch<CR>
+" build on f4
+map <F4> :make<CR>
+
 " highlight class of character under the word
 nmap <silent> <F10>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 map gn :e <cfile><CR>
@@ -129,6 +135,7 @@ nmap gr :exec ":silent !xdg-open ".expand("<cWORD>")
 " Set gp to select the last pasted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+" trim ending whitespace
 map <Leader>tr :%s/\s\+$//g
 " paste input toggle
 set pastetoggle=<F2>
@@ -171,10 +178,19 @@ let g:Tex_MathMenus=0
 let g:Tex_ViewRule_pdf='xdg-open'
 let g:Tex_DefaultTargetFormat='pdf'
 
-" Taglist Options
+" Semantic Highlighting
+map <F7>  :SemanticHighlightToggle<CR>
+
+" Tagbar Options
 " explicitly set our st plugin with F8
-nnoremap <silent> <F8> :Tlist<CR>
+nnoremap <silent> <F8> :Tagbar<CR>
 let Tlist_Show_One_File = 1
+let g:tagbar_left = 0
+
+
+" NERDTree
+noremap <F9> :NERDTreeToggle
+let NERDTreeWinPos="right"
 
 " undo branch viewer
 map <Leader>u :UndoBranchViewer<CR>
@@ -189,12 +205,29 @@ let mapleader = "\\"
 "
 nnoremap <LocalLeader>u :GundoToggle<CR>
 
+
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
+
+
+" }}}
+
+" {{{  HIGHLIGHTING OPTIONS
+highlight clear Error
+highlight clear Spellbad
+highlight link Spellbad javascriptDebug
+highlight link Error javascriptDebug
 " }}}
 
 " {{{ FILETYPE OPTIONS
+" go stuff
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+" autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
+
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 autocmd BufRead,BufNewFile *.less set filetype=less
 autocmd BufRead,BufNewFile *.coffee set filetype=coffee
+
 set suffixesadd+=.js
 set path+=**
 set cinoptions=cino-l
