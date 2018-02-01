@@ -207,8 +207,16 @@ let mapleader = "\\"
 " gundo toggle bindings
 nnoremap <LocalLeader>u :GundoToggle<CR>
 
-" syntastic
+" SYNTASTIC
+set statusline+=%#warningmsg#
+set statusline+=%*
+
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 
 " buf explorer
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
