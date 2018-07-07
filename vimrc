@@ -16,10 +16,11 @@ if has("gui_running")
         set guifont=Liberation\ Mono\ 10
 endif
 
+set guicursor=
 
 " set the color scheme
+let &background=$BACKGROUND
 colorscheme PaperColor
-set background=dark
 " }}}
 " GENERAL OPTIONS {{{
 " Short Messages - Don't give me that file already being edited nonsense
@@ -93,6 +94,9 @@ set thesaurus+=~/.vim/mthesaur.txt
 
 " }}}
 " MAPPINGS {{{
+let mapleader = "\\"
+let maplocalleader = "["
+
 " lhs comments (line commenting)
 map ,# :s/^/#/<CR>:nohlsearch<CR>
 map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
@@ -113,6 +117,7 @@ map ,[ 0/$:nohlsearch<CR>a [okay]
 " a grep mapping - doesn't add * to the end because it will search all files
 " in cur directory, and ack-grep is smart enough to know that.
 map <Leader>g :grep <cword>
+map <Leader>cc :source ~/.vimrc<CR>
 nmap [g :cp
 nmap ]g :cn
 nmap [t :tp
@@ -129,6 +134,8 @@ map <F4> :make<CR>
 
 map <F5> :SyntasticCheck<CR>
 
+let g:syntastic_shell = "/bin/bash"
+
 " highlight class of character under the word
 nmap <silent> <F10>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 map gn :e <cfile><CR>
@@ -142,38 +149,15 @@ map <Leader>tr :%s/\s\+$//g
 " paste input toggle
 set pastetoggle=<F2>
 " }}}
-" IRB {{{
-autocmd FileType irb inoremap <buffer> <CR> <Esc>:<C-u>ruby v=VIM::Buffer.current;v.append(v.line_number, eval(v[v.line_number]).inspect)<CR>
-nnoremap <leader>irb :<C-u>below new<CR>:setfiletype irb<CR>:set syntax=ruby<CR>:set buftype=nofile<CR>:set bufhidden=delete<CR>i
-" }}}
 " PLUGIN SETTINGS {{{
-" Finding function in python. Pretty nifty.
-python << EOL
-import vim
-
-def Finder(*args):
-    ''' Operation is as follows:
-        - request the starting dir
-        - find command finds the requested file
-        - the printf param formats it to accomodate the errorformat '%f:%l:%m'
-        - line is always 1, message is empty (-)
-        - the 'cgete' vim command puts it into the quickfix errorlist
-        - 'botright copen' opens the quickfix list
-    '''
-    start_dir = vim.eval('getcwd()')
-    find_cmd = (r'find %s -name %s -printf %%p:1:-\\n' % (start_dir, args[0]))
-    vim.command("cgete system('%s')" % find_cmd)
-    vim.command('botright copen')
-EOL
-command! -nargs=1 Find :py Finder("<args>")
-map <Leader>f :Find
-
 " Latex-Suite Options
 
 " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
+
+set ttimeoutlen=50
 
 " Remove the Math menu from Latex-Suite
 let g:Tex_MathMenus=0
@@ -192,15 +176,9 @@ let g:tagbar_left = 0
 noremap <F9> :NERDTreeToggle
 let NERDTreeWinPos="right"
 
-" undo branch viewer
-map <Leader>u :UndoBranchViewer<CR>
-" rails.vim options
-" let g:rails_statusline=0
-
 " Vimspell options
 let spell_root_menu="-"
 let spell_executable="aspell"
-let mapleader = "\\"
 
 " gundo toggle bindings
 nnoremap <LocalLeader>u :GundoToggle<CR>
@@ -210,30 +188,30 @@ set statusline+=%#warningmsg#
 set statusline+=%*
 
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_disabled_filetypes=['html', 'js']
 
 
 " buf explorer
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
+" vim-R
+" __ turns into <--
+let R_assign=2
 
 " }}}
-
 " {{{  HIGHLIGHTING OPTIONS
 highlight clear Error
 highlight clear Spellbad
 highlight link Spellbad javascriptDebug
 highlight link Error javascriptDebug
 " }}}
-
 " {{{ FILETYPE OPTIONS
 " go stuff
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
-" autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
-
 
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 autocmd BufRead,BufNewFile *.less set filetype=less
@@ -242,6 +220,9 @@ autocmd BufRead,BufNewFile *.coffee set filetype=coffee
 set suffixesadd+=.js
 set path+=**
 set cinoptions=cino-l
+
+let g:syntastic_javascript_checkers = ['jshint']
+
 " }}}
 "
 " vim: foldmethod=marker
