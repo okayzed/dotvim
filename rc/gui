@@ -1,0 +1,19 @@
+" UI OPTIONS {{{
+set t_Co=256
+
+" Gui Options
+if has("gui_running")
+        set guioptions-=e "get rid of tabs
+        set guioptions-=T "get rid of toolbar
+        set guioptions-=r "get rid of right scrollbar
+        set guioptions-=l "get rid of left scrollbar
+        set guifont=Liberation\ Mono\ 10
+endif
+
+set guicursor=
+
+" set the color scheme
+let &background=$BACKGROUND
+colorscheme PaperColor
+" }}}
+

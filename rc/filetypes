@@ -1,0 +1,20 @@
+" {{{  HIGHLIGHTING OPTIONS
+highlight clear Error
+highlight clear Spellbad
+highlight link Spellbad javascriptDebug
+highlight link Error javascriptDebug
+" }}}
+" {{{ FILETYPE OPTIONS
+" go stuff
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+
+au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+autocmd BufRead,BufNewFile *.less set filetype=less
+autocmd BufRead,BufNewFile *.coffee set filetype=coffee
+
+set suffixesadd+=.js
+set path+=**
+set cinoptions=cino-l
+
+let g:syntastic_javascript_checkers = ['jshint']
+" }}}

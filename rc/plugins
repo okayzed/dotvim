@@ -1,0 +1,59 @@
+" Pathogen initializer {{{
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+" }}}
+" PLUGIN SETTINGS {{{
+" Latex-Suite Options
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+set ttimeoutlen=50
+
+" Remove the Math menu from Latex-Suite
+let g:Tex_MathMenus=0
+let g:Tex_ViewRule_pdf='xdg-open'
+let g:Tex_DefaultTargetFormat='pdf'
+
+
+" Tagbar Options
+" explicitly set our st plugin with F8
+nnoremap <silent> <F8> :Tagbar<CR>
+let Tlist_Show_One_File = 1
+let g:tagbar_left = 0
+
+
+" NERDTree
+noremap <F9> :NERDTreeToggle
+let NERDTreeWinPos="right"
+
+" Vimspell options
+let spell_root_menu="-"
+let spell_executable="aspell"
+
+" gundo toggle bindings
+nnoremap <LocalLeader>u :GundoToggle<CR>
+
+" SYNTASTIC
+set statusline+=%#warningmsg#
+set statusline+=%*
+
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_disabled_filetypes=['html', 'js']
+
+
+" buf explorer
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
+
+" vim-R
+" __ turns into <--
+let R_assign=2
+
+" }}}
+" vim:syntax=vim
