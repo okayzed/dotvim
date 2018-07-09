@@ -19,47 +19,27 @@ set shiftwidth=2
 set smarttab
 set softtabstop=4
 set tabstop=2
-" wild menu
+" wild menu and menu completion
 set wildmenu
 set completeopt=longest,menuone,preview
-
 " default to using marker folds
 set foldmethod=marker
-
 " show me the command!
 set showcmd
-
 " Turn off mouse abilities
 set mouse=
+" if we have a thesaurus (use with ctrl-x ctrl-t)
+set thesaurus+=~/.vim/mthesaur.txt
 
-" Cscope options
-if has('cscope')
-  set cscopetag cscopeverbose
-
-  if has('quickfix')
-    set cscopequickfix=s-,c-,d-,i-,t-,e-
-  endif
-
-  cnoreabbrev csa cs add
-  cnoreabbrev csf cs find
-  cnoreabbrev csk cs kill
-  cnoreabbrev csr cs reset
-  cnoreabbrev csh cs help
-  cnoreabbrev csss cs show
-
-  command! -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-endif
 
 " Omnicompletion ahoy
 filetype plugin on
 set ofu=syntaxcomplete#Complete
+let g:syntastic_shell = "/bin/bash"
 
-set thesaurus+=~/.vim/mthesaur.txt
 
-" Display whitespace
 " Display statusline always
 " taken from http://techspeak.plainlystated.com/2009/05/vim-statusline.html
-
 set laststatus=2
 set statusline=
 set statusline+=%<\                       " cut at start
@@ -70,14 +50,13 @@ set statusline+=%2*[%n]%*\                " buffer number, and flags
 set statusline+=%1*%y%*%*\                " file type
 set statusline+=%10((%v,%l)%)\            " line and column
 set statusline+=%P                        " percentage of file
-
-
-
 " }}}
 " MAPPINGS {{{
 let mapleader = "\\"
 let maplocalleader = "["
+map <Leader>cc :source ~/.vimrc<CR>
 
+" commenting tips from http://vim.wikia.com/wiki/Easy_(un)commenting_out_of_source_code
 " lhs comments (line commenting)
 map ,# :s/^/#/<CR>:nohlsearch<CR>
 map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
@@ -96,47 +75,43 @@ map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
 " [okay] commenting
 map ,[ 0/$:nohlsearch<CR>a [okay]
 
+
+" EXTRA G COMMANDS
 " a grep mapping - doesn't add * to the end because it will search all files
 " in cur directory, and ack-grep is smart enough to know that.
 map <Leader>g :grep <cword>
-map <Leader>cc :source ~/.vimrc<CR>
-
 " go to new file
 map gn :e <cfile><CR>
-
-" open file through xdg-open
+" open file through xdg-open, use on images and the like
 nmap gr :exec ":silent !xdg-open ".expand("<cWORD>")
-
 " Set gp to select the last pasted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+" trim ending whitespace (silently)
+map <silent> <Leader>tr :silent! %s/\s\+$//g
 
-" trim ending whitespace
-map <Leader>tr :%s/\s\+$//g
 
-" quick fix and tag select shortcuts 
+" quick fix and tag select shortcuts
+nmap [  :bp
+nmap ]  :bn
 nmap [g :cp
 nmap ]g :cn
 nmap [t :tp
 nmap ]t :tn
 
 " swap two words next to each other, like xp but word wise
-:nnoremap <silent> xw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
+" from http://vim.wikia.com/wiki/Swapping_characters,_words_and_lines
+nnoremap <silent> xw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 
-" toggle paste mode
-map <F2> :set paste!<CR>
+" FUNCTION KEYS
+" paste input toggle
+set pastetoggle=<F2>
 " no highlighting after search with F3
 map <F3> :nohlsearch<CR>
 " build on f4
 map <F4> :make<CR>
-
 map <F5> :SyntasticCheck<CR>
-
-let g:syntastic_shell = "/bin/bash"
-
 " highlight class of character under the word
 nmap <silent> <F10>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-" paste input toggle
-set pastetoggle=<F2>
 " }}}
 "
 " vim: foldmethod=marker
