@@ -30,6 +30,11 @@ set showcmd
 set mouse=
 " if we have a thesaurus (use with ctrl-x ctrl-t)
 set thesaurus+=~/.vim/mthesaur.txt
+" for faster movement, we have line numbers enabled
+set cursorline
+set relativenumber
+set number
+set path+=**
 
 
 " Omnicompletion ahoy
@@ -91,8 +96,8 @@ map <silent> <Leader>tr :silent! %s/\s\+$//g
 
 
 " quick fix and tag select shortcuts
-nmap [  :bp
-nmap ]  :bn
+nmap [b :bp
+nmap ]b :bn
 nmap [g :cp
 nmap ]g :cn
 nmap [t :tp
