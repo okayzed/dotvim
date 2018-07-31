@@ -36,6 +36,14 @@ set relativenumber
 set number
 set path+=**
 
+set swapfile
+set undofile
+set undodir=~/.vim/.undo//
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swp//
+silent !test -d ~/.vimrc/.swp || mkdir -p ~/.vim/.{undo,backup,swp}
+
+
 
 " Omnicompletion ahoy
 filetype plugin on
