@@ -3,14 +3,21 @@ set t_Co=256
 
 " Gui Options
 if has("gui_running")
+        set guioptions-=m "get rid of menubar
         set guioptions-=e "get rid of tabs
         set guioptions-=T "get rid of toolbar
-        set guioptions-=r "get rid of right scrollbar
-        set guioptions-=l "get rid of left scrollbar
-        set guifont=Liberation\ Mono\ 10
+        set guioptions-=rR "get rid of right scrollbar
+        set guioptions-=lL "get rid of left scrollbar
+        set guiheadroom=0 " get rid of headroom on gui
+        set guifont=Monospace\ 14
+        set fillchars+=vert:\ 
+
+
+
 endif
 
 set guicursor=
+set mouse=a
 
 " set the color scheme
 let &background=$BACKGROUND

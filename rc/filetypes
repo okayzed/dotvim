@@ -9,8 +9,11 @@ highlight link Error javascriptDebug
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-autocmd BufRead,BufNewFile *.less set filetype=less
-autocmd BufRead,BufNewFile *.coffee set filetype=coffee
+au BufRead,BufNewFile *.less set filetype=less
+au BufRead,BufNewFile *.vala set filetype=vala
+au BufRead,BufNewFile *.coffee set filetype=coffee
+au BufRead,BufNewFile *.cpy set filetype=cpy syntax=cpy
+au BufRead,BufNewFile TODO set filetype=markdown syntax=markdown
 
 set suffixesadd+=.js
 set cinoptions=cino-l

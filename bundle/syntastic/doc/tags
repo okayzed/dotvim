@@ -426,6 +426,7 @@ syntastic-global-options	syntastic.txt	/*syntastic-global-options*
 syntastic-glsl-cgc	syntastic-checkers.txt	/*syntastic-glsl-cgc*
 syntastic-go-go	syntastic-checkers.txt	/*syntastic-go-go*
 syntastic-go-gofmt	syntastic-checkers.txt	/*syntastic-go-gofmt*
+syntastic-go-golangci_lint	syntastic-checkers.txt	/*syntastic-go-golangci_lint*
 syntastic-go-golint	syntastic-checkers.txt	/*syntastic-go-golint*
 syntastic-go-gometalinter	syntastic-checkers.txt	/*syntastic-go-gometalinter*
 syntastic-go-gotype	syntastic-checkers.txt	/*syntastic-go-gotype*
@@ -462,6 +463,7 @@ syntastic-javascript-jshint	syntastic-checkers.txt	/*syntastic-javascript-jshint
 syntastic-javascript-jsl	syntastic-checkers.txt	/*syntastic-javascript-jsl*
 syntastic-javascript-jslint	syntastic-checkers.txt	/*syntastic-javascript-jslint*
 syntastic-javascript-jsxhint	syntastic-checkers.txt	/*syntastic-javascript-jsxhint*
+syntastic-javascript-lynt	syntastic-checkers.txt	/*syntastic-javascript-lynt*
 syntastic-javascript-mixedindentlint	syntastic-checkers.txt	/*syntastic-javascript-mixedindentlint*
 syntastic-javascript-standard	syntastic-checkers.txt	/*syntastic-javascript-standard*
 syntastic-javascript-tern_lint	syntastic-checkers.txt	/*syntastic-javascript-tern_lint*
@@ -481,6 +483,7 @@ syntastic-lua-luac	syntastic-checkers.txt	/*syntastic-lua-luac*
 syntastic-lua-luacheck	syntastic-checkers.txt	/*syntastic-lua-luacheck*
 syntastic-markdown-mdl	syntastic-checkers.txt	/*syntastic-markdown-mdl*
 syntastic-markdown-proselint	syntastic-checkers.txt	/*syntastic-markdown-proselint*
+syntastic-markdown-remark_lint	syntastic-checkers.txt	/*syntastic-markdown-remark_lint*
 syntastic-markdown-textlint	syntastic-checkers.txt	/*syntastic-markdown-textlint*
 syntastic-matlab-mlint	syntastic-checkers.txt	/*syntastic-matlab-mlint*
 syntastic-mercury-mmc	syntastic-checkers.txt	/*syntastic-mercury-mmc*
@@ -593,6 +596,7 @@ syntastic-turtle-rapper	syntastic-checkers.txt	/*syntastic-turtle-rapper*
 syntastic-turtle-ttl	syntastic-checkers.txt	/*syntastic-turtle-ttl*
 syntastic-twig-twiglint	syntastic-checkers.txt	/*syntastic-twig-twiglint*
 syntastic-typescript-eslint	syntastic-checkers.txt	/*syntastic-typescript-eslint*
+syntastic-typescript-lynt	syntastic-checkers.txt	/*syntastic-typescript-lynt*
 syntastic-typescript-tslint	syntastic-checkers.txt	/*syntastic-typescript-tslint*
 syntastic-vala-valac	syntastic-checkers.txt	/*syntastic-vala-valac*
 syntastic-verilog-iverilog	syntastic-checkers.txt	/*syntastic-verilog-iverilog*

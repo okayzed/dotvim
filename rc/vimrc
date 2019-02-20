@@ -21,7 +21,7 @@ set softtabstop=4
 set tabstop=2
 " wild menu and menu completion
 set wildmenu
-set completeopt=longest,menuone,preview
+set completeopt=longest,menuone
 " default to using marker folds
 set foldmethod=marker
 " show me the command!
@@ -34,7 +34,12 @@ set thesaurus+=~/.vim/mthesaur.txt
 set cursorline
 set relativenumber
 set number
+
 set path+=**
+set wildignore+=**/node_modules/**
+set wildignore+=**/python2.7/**
+set wildignore+=**/site-packages/**
+set wildignore+=**/build/**
 
 set swapfile
 set undofile
@@ -121,7 +126,7 @@ set pastetoggle=<F2>
 " no highlighting after search with F3
 map <F3> :nohlsearch<CR>
 " build on f4
-map <F4> :make<CR>
+map <F4> :w<CR>:silent :make<CR>:cw<CR>
 map <F5> :SyntasticCheck<CR>
 " highlight class of character under the word
 nmap <silent> <F10>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>

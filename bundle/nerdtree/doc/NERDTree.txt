@@ -126,24 +126,27 @@ The following features and functionality are provided by the NERD tree:
     Changes made to one tree are reflected in both as they are actually the
     same buffer.
 
-    If only one other NERD tree exists, that tree is automatically mirrored. If
-    more than one exists, the script will ask which tree to mirror.
+    If only one other NERD tree exists, that tree is automatically mirrored.
+    If more than one exists, the script will ask which tree to mirror.
 
 :NERDTreeClose                                                *:NERDTreeClose*
     Close the NERD tree in this tab.
 
-:NERDTreeFind                                                  *:NERDTreeFind*
-    Find the current file in the tree.
+:NERDTreeFind [<path>]                                         *:NERDTreeFind*
+    Without the optional argument, find and reveal the file for the active
+    buffer in the NERDTree window.  With the <path> argument, find and
+    reveal the specified path.
 
-    If no tree exists and the current file is under vim's CWD, then init a
-    tree at the CWD and reveal the file. Otherwise init a tree in the current
-    file's directory.
-
-    In any case, the current file is revealed and the cursor is placed on it.
+    Focus will be shifted to the NERDTree window, and the cursor will be
+    placed on the tree node for the determined path.  If a NERDTree for the
+    current tab does not exist, a new one will be initialized.
 
 :NERDTreeCWD                                                    *:NERDTreeCWD*
-    Change tree root to current directory. If no NERD tree exists for this
-    tab, a new tree will be opened.
+    Change the NERDTree root to the current working directory.  If no
+    NERDTree exists for this tab, a new one is opened.
+
+:NERDTreeRefreshRoot                                    *:NERDTreeRefreshRoot*
+    Refreshes the NERD tree root node.
 
 ------------------------------------------------------------------------------
 2.2. Bookmarks                                             *NERDTreeBookmarks*
@@ -522,7 +525,7 @@ Default key: cd
 Map option: NERDTreeMapChdir
 Applies to: files and directories.
 
-Change vims current working directory to that of the selected node.
+Change Vim's current working directory to that of the selected node.
 
 ------------------------------------------------------------------------------
                                                                  *NERDTree-CD*
@@ -530,7 +533,7 @@ Default key: CD
 Map option: NERDTreeMapCWD
 Applies to: no restrictions.
 
-Change tree root to vims current working directory.
+Change the NERDTree root to Vim's current working directory.
 
 ------------------------------------------------------------------------------
                                                                   *NERDTree-I*
@@ -601,6 +604,22 @@ creating/deleting/moving/copying files and dirs. exec_menuitem.vim provides a
 menu item to execute executable files.
 
 Related tags: |NERDTree-m| |NERDTreeApi|
+
+------------------------------------------------------------------------------
+                                                              *NERDTreeMenu-j*
+Default key: j
+Map option: NERDTreeMenuDown
+Applies to: The NERD tree menu.
+
+Moves the cursor down.
+
+------------------------------------------------------------------------------
+                                                              *NERDTreeMenu-k*
+Default key: k
+Map option: NERDTreeMenuUp
+Applies to: The NERD tree menu.
+
+Moves the cursor up.
 
 ==============================================================================
 3. Customisation                                             *NERDTreeOptions*
@@ -693,6 +712,16 @@ NERD tree. These options should be set in your vimrc.
 
 |'NERDTreeCreatePrefix'|        Specify a prefix to be used when creating the
                                 NERDTree window.
+
+|'NERDTreeRemoveFileCmd'|       Specify a custom shell command to be used when
+                                deleting files. Note that it should include
+                                one space character at the end of the command
+                                and it applies only to files.
+
+|'NERDTreeRemoveDirCmd'|        Specify a custom shell command to be used when
+                                deleting directories. Note that it should
+                                include one space character at the end of the
+                                command and it applies only to directories.
 
 ------------------------------------------------------------------------------
 3.2. Customisation details                             *NERDTreeOptionDetails*
@@ -982,31 +1011,46 @@ appended to the array.
 
 The regex '\/$' should be used to match directory nodes.
 
+A special flag can be used to sort by the modification timestamps of files and
+directories. It is either '[[timestamp]]' for ascending, or '[[-timestamp]]'
+for descending. If placed at the beginning of the list, files and directories
+are sorted by timestamp, and then by the remaining items in the sort order
+list. If this flag is in any other position of the list, timestamp sorting is
+done secondarily. See examples 4, 5, and 6 below.
+
 After this sorting is done, the files in each group are sorted alphabetically.
 
 Other examples: >
     (1) ['*', '\/$']
     (2) []
     (3) ['\/$', '\.rb$', '\.php$', '*', '\.swp$',  '\.bak$', '\~$']
+    (4) ['[[timestamp]]']
+    (5) ['\/$', '*', '[[-timestamp]]']
+    (6) ['\.md$', '\.c$', '[[-timestamp]]', '*']
 <
 1. Directories will appear last, everything else will appear above.
 2. Everything will simply appear in alphabetical order.
 3. Dirs will appear first, then ruby and php. Swap files, bak files and vim
    backup files will appear last with everything else preceding them.
+4. All files and directories are sorted by timestamp, oldest first. If any
+   files have identical timestamps, they are sorted alphabetically.
+5. Directories are first, newest to oldest, then everything else, newest to
+   oldest.
+6. Markdown files first, followed by C source files, then everything else.
+   Each group is shown newest to oldest.
 
 ------------------------------------------------------------------------------
                                                         *'NERDTreeStatusline'*
-Values: Any valid statusline setting.
-Default: %{b:NERDTree.root.path.strForOS(0)}
+Values: Any valid |'statusline'| setting.
+Default: %{exists('b:NERDTree')?b:NERDTree.root.path.str():''}
 
-Tells the script what to use as the |'statusline'| setting for NERD tree
-windows.
+Defines the value for the |'statusline'| setting in NERDTree windows.
 
-Note that the statusline is set using |:let-&| not |:set| so escaping spaces
-isn't necessary.
+Note: The setting is actually applied using |:let-&|, not |:set|, so
+escaping spaces is not necessary.
 
-Setting this option to -1 will will deactivate it so that your global
-statusline setting is used instead.
+Setting this option to -1 will deactivate it so that your global
+|'statusline'| setting is used.
 
 ------------------------------------------------------------------------------
                                                             *'NERDTreeWinPos'*
@@ -1128,13 +1172,12 @@ NERDTreeAddKeyMap({options})                             *NERDTreeAddKeyMap()*
     Additionally, a "scope" argument may be supplied. This constrains the
     mapping so that it is only activated if the cursor is on a certain object.
     That object is then passed into the handling method. Possible values are:
-        "FileNode" - a file node
-        "DirNode" - a directory node
-        "Node" - a file or directory node
-        "Bookmark" - A bookmark
-        "all" - the keymap is not constrained to any scope (default). When
-        thei is used, the handling function is not passed any arguments.
 
+      "FileNode" .... a file node
+      "DirNode" ..... a directory node
+      "Node" ........ a file node OR a directory node
+      "Bookmark" .... a bookmark
+      "all" ......... global scope; handler receives no arguments (default)
 
     Example: >
         call NERDTreeAddKeyMap({

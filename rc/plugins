@@ -17,17 +17,36 @@ let g:Tex_MathMenus=0
 let g:Tex_ViewRule_pdf='xdg-open'
 let g:Tex_DefaultTargetFormat='pdf'
 
+" Ctrl-P
+map <silent> <F7> :CtrlPClearCache<CR>
 
 " Tagbar Options
 " explicitly set our st plugin with F8
-nnoremap <silent> <F8> :Tagbar<CR>
+nnoremap <silent> <F9> :Tagbar<CR>
 let Tlist_Show_One_File = 1
 let g:tagbar_left = 0
+let g:tagbar_type_javascript = {
+    \ 'ctagsbin': '/usr/bin/ctags-exuberant',
+    \ 'ctagstype' : 'JavaScript',
+        \ 'kinds'     : [
+        \ 'o:object',
+        \ 'v:variable',
+        \ 'n:number',
+        \ 'f:function',
+        \ 'a:array',
+        \ 's:string',
+        \ 'b:boolean'
+    \ ]
+\ }
+
 
 
 " NERDTree
-noremap <F9> :NERDTreeToggle
-let NERDTreeWinPos="right"
+noremap <F8> :NERDTreeToggle
+let NERDTreeWinPos="left"
+let NERDTreeMouseMode="3"
+let NERDTreeIgnore = ['\.pyc$']
+
 
 " Vimspell options
 let spell_root_menu="-"
@@ -54,6 +73,33 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 " vim-R
 " __ turns into <--
 let R_assign=2
+
+" notational velocity
+let g:nv_search_paths = ['~/Notes', '~/Sync/notes', './TODO*', '~/TODO', '~/IDEAS', '~/tonka/src/idealogue/site/_ideas/', '~/Sync/quotes/', '~/.local/share/sjrn', '~/Sync/docs/journal/journal.txt']
+let g:nv_default_extension = ''
+let g:nv_use_short_pathnames = 1
+let g:nv_ignore_pattern = ['wiki_html*']
+nnoremap <silent> <LocalLeader>n :NV<CR>
+
+
+
+
+let g:vimwiki_list = [{'path': '~/vimwiki/wiki/', 'path_html': '~/vimwiki/html/'}]
+let g:vimwiki_ext2syntax = {'.md': 'markdown',
+                \ '.mkd': 'markdown' }
+
+let g:markdown_folding = 1
+
+
+let g:graphql_javascript_tags = []
+
+" youcomplete me
+let g:ycm_autoclose_preview_window_after_completion = 0
+
+
+" turn off ctrl-] in vim-go
+  let g:go_def_mapping_enabled = 0
+
 
 " }}}
 " vim:syntax=vim
