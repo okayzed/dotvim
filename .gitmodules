@@ -14,7 +14,7 @@
 	path = bundle/vim-surround
 	url = https://github.com/tpope/vim-surround
 [submodule "bundle/vim-rsi"]
-	path = bundle/--force
+	path = bundle/vim-rsi
 	url = https://github.com/tpope/vim-rsi
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
