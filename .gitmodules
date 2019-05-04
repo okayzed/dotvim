@@ -22,9 +22,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar
-[submodule "bundle/gundo.vim"]
-	path = bundle/gundo.vim
-	url = https://github.com/sjl/gundo.vim
 [submodule "bundle/vim-css-color"]
 	path = bundle/vim-css-color
 	url = https://github.com/skammer/vim-css-color
@@ -40,3 +37,9 @@
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/tmhedberg/matchit
+[submodule "bundle/vim-mundo"]
+	path = bundle/vim-mundo
+	url = https://github.com/simnalamburt/vim-mundo
+[submodule "bundle/vim-jsx"]
+	path = bundle/vim-jsx
+	url = https://github.com/mxw/vim-jsx

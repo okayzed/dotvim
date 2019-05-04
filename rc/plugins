@@ -39,6 +39,9 @@ let g:tagbar_type_javascript = {
     \ ]
 \ }
 
+"UndoTree
+map <silent> <F12> :MundoToggle<CR>
+
 
 
 " NERDTree
@@ -74,32 +77,18 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 " __ turns into <--
 let R_assign=2
 
-" notational velocity
-let g:nv_search_paths = ['~/Notes', '~/Sync/notes', './TODO*', '~/TODO', '~/IDEAS', '~/tonka/src/idealogue/site/_ideas/', '~/Sync/quotes/', '~/.local/share/sjrn', '~/Sync/docs/journal/journal.txt']
-let g:nv_default_extension = ''
-let g:nv_use_short_pathnames = 1
-let g:nv_ignore_pattern = ['wiki_html*']
-nnoremap <silent> <LocalLeader>n :NV<CR>
-
-
-
-
-let g:vimwiki_list = [{'path': '~/vimwiki/wiki/', 'path_html': '~/vimwiki/html/'}]
-let g:vimwiki_ext2syntax = {'.md': 'markdown',
-                \ '.mkd': 'markdown' }
 
 let g:markdown_folding = 1
 
 
 let g:graphql_javascript_tags = []
 
-" youcomplete me
-let g:ycm_autoclose_preview_window_after_completion = 0
-
 
 " turn off ctrl-] in vim-go
-  let g:go_def_mapping_enabled = 0
+let g:go_def_mapping_enabled = 0
 
 
 " }}}
+
+
 " vim:syntax=vim

@@ -98,8 +98,6 @@ map ,[ 0/$:nohlsearch<CR>a [okay]
 " a grep mapping - doesn't add * to the end because it will search all files
 " in cur directory, and ack-grep is smart enough to know that.
 map <Leader>g :grep <cword>
-" go to new file
-map gn :e <cfile><CR>
 " open file through xdg-open, use on images and the like
 nmap gr :exec ":silent !xdg-open ".expand("<cWORD>")
 " Set gp to select the last pasted text
@@ -107,6 +105,8 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " trim ending whitespace (silently)
 map <silent> <Leader>tr :silent! %s/\s\+$//g
 
+vmap <leader>y :w! /tmp/vitmp<CR>
+nmap <leader>p :r! cat /tmp/vitmp<CR>
 
 " quick fix and tag select shortcuts
 nmap [b :bp
