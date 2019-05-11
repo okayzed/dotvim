@@ -88,6 +88,11 @@ let g:graphql_javascript_tags = []
 let g:go_def_mapping_enabled = 0
 
 
+" ack.vim
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
+
 " }}}
 
 
