@@ -18,5 +18,9 @@ au BufRead,BufNewFile TODO set filetype=markdown syntax=markdown
 set suffixesadd+=.js
 set cinoptions=cino-l
 
-let g:syntastic_javascript_checkers = ['jshint']
+filetype plugin on
+
+
 " }}}
+
+" vim: foldmethod=marker syntax=vim

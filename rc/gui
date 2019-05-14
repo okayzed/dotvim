@@ -24,3 +24,4 @@ let &background=$BACKGROUND
 colorscheme PaperColor
 " }}}
 
+" vim: foldmethod=marker syntax=vim
