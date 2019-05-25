@@ -20,7 +20,7 @@ set guicursor=
 set mouse=a
 
 " set the color scheme
-let &background=$BACKGROUND
+set background=dark
 colorscheme PaperColor
 " }}}
 
