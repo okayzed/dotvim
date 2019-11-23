@@ -55,3 +55,9 @@
 [submodule "bundle/vim-autoformat"]
 	path = bundle/vim-autoformat
 	url = https://github.com/Chiel92/vim-autoformat
+[submodule "bundle/ale"]
+	path = bundle/ale
+	url = git@github.com:w0rp/ale
+[submodule "bundle/vim-hack"]
+	path = bundle/vim-hack
+	url = git@github.com:hhvm/vim-hack

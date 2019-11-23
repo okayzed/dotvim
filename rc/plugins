@@ -94,8 +94,30 @@ let g:go_def_mapping_enabled = 0
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
 
+" TBGS / TBGF
+nnoremap <leader>f :TBGF <cword>
+nnoremap <leader>s :TBGS <cword>
+
+" Ale
+" {{{
+
+if v:version >= 800
+  let g:ale_completion_enabled = 1
+  nnoremap <silent> K :ALEHover<CR>
+  nnoremap <silent> gd :ALEGoToDefinition<CR>
+  nnoremap <M-LeftMouse> <LeftMouse>:ALEGoToDefinition<CR>
+  nnoremap  :ALEFindReferences<CR>
+
+  " show type on hover
+  if v:version >= 801
+    set balloonevalterm
+      let g:ale_set_balloons = 1
+  endif
+endif
+
+" }}}
 
 " }}}
 
 
-" vim:syntax=vim
+" vim: syntax=vim
