@@ -88,8 +88,6 @@ let g:graphql_javascript_tags = []
 
 " turn off ctrl-] in vim-go
 let g:go_def_mapping_enabled = 0
-" turn off vim go completion
-let g:go_code_completion_enabled = 0
 
 
 

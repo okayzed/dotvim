@@ -61,3 +61,6 @@
 [submodule "bundle/vim-hack"]
 	path = bundle/vim-hack
 	url = git@github.com:hhvm/vim-hack
+[submodule "bundle/vim-signature"]
+	path = bundle/vim-signature
+	url = https://github.com/kshenoy/vim-signature
