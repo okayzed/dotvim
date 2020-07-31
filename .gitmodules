@@ -64,3 +64,12 @@
 [submodule "bundle/vim-signature"]
 	path = bundle/vim-signature
 	url = https://github.com/kshenoy/vim-signature
+[submodule "bundle/fzf.vim"]
+	path = bundle/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "bundle/nvim-yarp"]
+	path = bundle/nvim-yarp
+	url = https://github.com/roxma/nvim-yarp
+[submodule "bundle/vim-hug-neovim-rpc"]
+	path = bundle/vim-hug-neovim-rpc
+	url = https://github.com/roxma/vim-hug-neovim-rpc

@@ -12,7 +12,7 @@ au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 au BufRead,BufNewFile *.less set filetype=less
 au BufRead,BufNewFile *.vala set filetype=vala
 au BufRead,BufNewFile *.coffee set filetype=coffee
-au BufRead,BufNewFile *.cpy set filetype=cpy syntax=cpy
+au BufRead,BufNewFile *.cpy set filetype=cpy syntax=cpp
 au BufRead,BufNewFile *.php set filetype=hack syntax=hack
 au BufRead,BufNewFile TODO set filetype=markdown syntax=markdown
 

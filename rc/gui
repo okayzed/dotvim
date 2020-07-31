@@ -22,6 +22,10 @@ set mouse=a
 " set the color scheme
 set background=dark
 colorscheme PaperColor
+highlight Normal ctermbg=234
+highlight Error ctermbg=175 ctermfg=0
+highlight ErrorMsg ctermbg=175 ctermfg=0
+highlight cppAccess ctermfg=8
 " }}}
 
 " vim: foldmethod=marker syntax=vim

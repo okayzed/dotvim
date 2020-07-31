@@ -17,8 +17,6 @@ let g:Tex_MathMenus=0
 let g:Tex_ViewRule_pdf='xdg-open'
 let g:Tex_DefaultTargetFormat='pdf'
 
-" Ctrl-P
-map <silent> <F7> :CtrlPClearCache<CR>
 
 " Tagbar Options
 " explicitly set our st plugin with F8
@@ -89,11 +87,28 @@ let g:graphql_javascript_tags = []
 " turn off ctrl-] in vim-go
 let g:go_def_mapping_enabled = 0
 
-
+" fzf.vim
+set rtp+=~/.fzf
+map <Leader>g :Rg! <cword>
+map <Leader>G :Rg!<space>
+" Ctrl-P alike
+map  :Files
+map  :Rg!
+map  :Buffers
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+"
 
 " ack.vim
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
+
+" rainbow parenthesis on by default
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 " TBGS / TBGF
 nnoremap <leader>f :TBGF <cword>
@@ -102,8 +117,8 @@ nnoremap <leader>s :TBGS <cword>
 " Ale
 " {{{
 
+let g:ale_completion_enabled = 1
 if v:version >= 800
-  let g:ale_completion_enabled = 1
   nnoremap <silent> K :ALEHover<CR>
   nnoremap <silent> gd :ALEGoToDefinition<CR>
   nnoremap <M-LeftMouse> <LeftMouse>:ALEGoToDefinition<CR>
@@ -117,6 +132,10 @@ if v:version >= 800
 endif
 
 " }}}
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
 
 " }}}
 

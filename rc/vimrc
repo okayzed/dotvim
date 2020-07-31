@@ -6,6 +6,9 @@ set nocompatible
 set shortmess+=A
 " Switch between buffers without saving the buffer first
 set hidden
+" perf settings
+set lazyredraw
+set ttyfast
 "Itch that bufferscratching itch with jumping around.
 set switchbuf=useopen
 " Search settings
@@ -21,7 +24,7 @@ set softtabstop=4
 set tabstop=2
 " wild menu and menu completion
 set wildmenu
-set completeopt=longest,menuone
+set completeopt=menu,menuone,preview,noinsert
 " default to using marker folds
 set foldmethod=marker
 " show me the command!
@@ -35,11 +38,15 @@ set cursorline
 set relativenumber
 set number
 
+set splitright
+
 set path+=**
 set wildignore+=**/node_modules/**
 set wildignore+=**/python*/**
 set wildignore+=**/site-packages/**
 set wildignore+=**/build/**
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/db/*
 
 " persistent undo across vim sessions
 set swapfile
@@ -68,13 +75,17 @@ let maplocalleader = "["
 map <Leader>cc :source ~/.vimrc<CR>
 
 " EXTRA G COMMANDS
-" a grep mapping - doesn't add * to the end because it will search all files
-" in cur directory, and ack-grep is smart enough to know that.
-map <Leader>g :grep <cword>
 " open file through xdg-open, use on images and the like
 nmap gr :exec ":silent !xdg-open ".expand("<cWORD>")
 " Set gp to select the last pasted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+
+" use Y to copy / paste from the xsel buffer. 
+" i know this is technically overloading Y but
+" i'm fine with it for now
+vmap Y :!xsel -iu
+nmap Y :r!xsel -o<CR>
 
 " commenting tips from http://vim.wikia.com/wiki/Easy_(un)commenting_out_of_source_code
 " lhs comments (line commenting)
@@ -97,6 +108,7 @@ map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
 " trim ending whitespace (silently)
 map <silent> <Leader>tr :silent! %s/\s\+$//g
 
+
 map <leader>pr :Autoformat<CR>
 
 " quick fix and tag select shortcuts
@@ -117,8 +129,15 @@ nnoremap <silent> xw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 set pastetoggle=<F2>
 " no highlighting after search with F3
 map <F3> :nohlsearch<CR>
+
 " build on f5
 map <F5> :w<CR>:silent :make<CR>:cw<CR>
+
+" get highlight groups
+map gh :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " }}}
-"
+
 " vim: foldmethod=marker
