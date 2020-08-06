@@ -7,8 +7,6 @@ set shortmess+=A
 " Switch between buffers without saving the buffer first
 set hidden
 " perf settings
-set lazyredraw
-set ttyfast
 "Itch that bufferscratching itch with jumping around.
 set switchbuf=useopen
 " Search settings
