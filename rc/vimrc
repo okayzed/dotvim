@@ -111,6 +111,10 @@ map <silent> <Leader>tr :silent! %s/\s\+$//g
 
 map <leader>pr :Autoformat<CR>
 
+" make a header out of the current line
+map <leader>h VypVr-
+map <leader>H VypVr=
+
 " quick fix and tag select shortcuts
 nmap <LocalLeader>b :bp
 nmap <LocalLeader>b :bn
